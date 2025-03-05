@@ -1,65 +1,72 @@
+:root {
+    --board-color: #b67a56;
+    --sidebar-color: #4daa7d;
+    --peg-shadow: rgba(0, 0, 0, 0.4);
+    --button-color: #b67a56;
+    --button-text: white;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    background-color: #e8d0b8;
+    background-image: none;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 div {
     align-self: normal;
-    border: solid 0.2rem #999;
-    background-color: #ddd;
+    border: solid 0.2rem #74503a;
+    background-color: var(--board-color);
     margin: auto;
 }
 
 button {
     align-self: normal;
-    border-radius: inherit;
-    border: solid #999 0.2rem;
+    border-radius: 5px;
+    border: solid #74503a 0.2rem;
     margin: 5%;
     font-size: 1rem;
+    background-color: var(--sidebar-color);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
 }
 
 .field {
-    display: grid;
-    grid-template-columns: auto;
-    width: 500px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 600px;
+    background-color: var(--board-color);
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
 }
 
 .row {
     display: grid;
-    border: #000 0.2rem solid;
+    border: #74503a 0.2rem solid;
     border-radius: 1rem;
     grid-template-columns: repeat(13, 1fr);
     grid-template-rows: repeat(2, 1fr);
     align-items: center;
-    background-color: #eee;
+    background-color: var(--board-color);
     margin: 7px;
-}
-
-/* Buttons */
-
-.win {
-    grid-row: 1/3;
-    grid-column: 1/14;
-    background-color: #0f0;
-    color: #fff;
-    text-align: center;
-    margin: 7px;
-    border-radius: inherit;
-}
-
-.bewerte {
-    grid-row: 1/2;
-    grid-column: 1/4;
-}
-
-.autoGuess {
-    grid-row: 2/3;
-    grid-column: 1/4;
-}
-
-.neuSpiel {
-    grid-row: 1/3;
-    grid-column: 1/4;
-}
-
-.visible {
-    grid-row: 1/3;
-    grid-column: 12/14;
+    position: relative;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
 }
 
 .circle {
@@ -67,83 +74,121 @@ button {
     aspect-ratio: 1;
     margin: 5%;
     background-color: #888;
+    box-shadow: inset -2px -2px 5px var(--peg-shadow), inset 2px 2px 5px rgba(255,255,255,0.3);
+    transition: all 0.2s ease;
 }
 
-/* Pegs */
-.s1 {
-    grid-row: 1/3;
-    grid-column: 4/6;
+.circle.peg {
+    transform-style: preserve-3d;
+    position: relative;
 }
 
-.s2 {
-    grid-row: 1/3;
-    grid-column: 6/8;
+.circle.peg:hover {
+    transform: scale(1.05);
 }
 
-.s3 {
-    grid-row: 1/3;
-    grid-column: 8/10;
-}
-
-.s4 {
-    grid-row: 1/3;
-    grid-column: 10/12;
-}
-
-.b1 {
-    grid-row: 1/2;
-    grid-column: 12/13;
-}
-
-.b2 {
-    grid-row: 1/2;
-    grid-column: 13/14;
-}
-
-.b3 {
-    grid-row: 2/3;
-    grid-column: 12/13;
-}
-
-.b4 {
-    grid-row: 2/3;
-    grid-column: 13/14;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: darkgrey;
-    background-image: url("mastermindimage.jpg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-}
-
-h1,
-h2 {
+h1, h2 {
     text-align: center;
-    color: white;
-    background-color: #999;
-    outline: 2px solid black;
+    color: var(--button-text);
+    background-color: var(--sidebar-color);
+    outline: none;
     margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 #master {
-    background-color: darkblue;
+    background-color: var(--sidebar-color);
+    position: relative;
+    border-radius: 10px;
 }
 
-p {
-    text-align: center;
+#master .row {
+    background-color: var(--board-color);
 }
 
 #computerGuessBtn {
     display: block;
     padding: 10px;
-    background-color: #999;
+    background-color: var(--sidebar-color);
     color: white;
-    border: solid 0.2rem #666;
+    border: solid #74503a 0.2rem;
     border-radius: 0.5rem;
     margin: 10px auto;
     cursor: pointer;
     font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    max-width: 300px;
+}
+
+#computerGuessBtn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+.win {
+    grid-row: 1/3;
+    grid-column: 1/14;
+    background-color: #5bc579;
+    color: #fff;
+    text-align: center;
+    margin: 7px;
+    border-radius: inherit;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: winPulse 1.5s infinite alternate;
+}
+
+@keyframes winPulse {
+    from {
+        background-color: #5bc579;
+        transform: scale(1);
+    }
+
+    to {
+        background-color: #4da366;
+        transform: scale(1.02);
+    }
+}
+
+#notify {
+    background-color: #e8d0b8;
+    color: #74503a;
+    border: 2px solid #74503a;
+    border-radius: 5px;
+    padding: 10px;
+    font-family: 'Courier New', monospace;
+    width: 95%;
+    height: 7rem;
+}
+
+@media (max-width: 600px) {
+    .field {
+        width: 95%;
+    }
+
+    .row {
+        grid-template-columns: repeat(13, 1fr);
+    }
+
+    button {
+        font-size: 0.8rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
 }

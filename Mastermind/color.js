@@ -9,15 +9,15 @@ class Color {
     domObj = null;
 
     static rgbValues = [
-        "#ff0000",
-        "#00ff00",
-        "#0000ff",
-        "#ffff00",
-        "#00ffff",
-        "#ff00ff",
-    ];
+    "#ff3333", // Rot
+    "#ff9900", // Orange
+    "#ffdd00", // Gelb
+    "#66cccc", // Türkis/Mintgrün
+    "#6699cc", // Hellblau
+    "#cc66cc", // Lila/Violett
+];
 
-    // liefere mir den RGB String für 0 .. 5
+    
     static getRGB(i) {
         return this.rgbValues[i % this.rgbValues.length];
     }
@@ -38,14 +38,16 @@ class Color {
     }
 
     updateDisplay(visible = true) {
-        this.visible = visible;
-        // cl("update", this, visible)
-        if (visible) {
-            this.domObj.style.backgroundColor = Color.getRGB(this.currentValue);
-        } else {
-            this.domObj.style.backgroundColor = "#ddd";
-        }
+    this.visible = visible;
+    if (visible) {
+        const color = Color.getRGB(this.currentValue);
+        this.domObj.style.backgroundColor = color;
+        this.domObj.style.boxShadow = `inset -3px -3px 5px rgba(0,0,0,0.4), inset 3px 3px 5px rgba(255,255,255,0.3), 2px 2px 3px rgba(0,0,0,0.2)`;
+    } else {
+        this.domObj.style.backgroundColor = "#74503a";
+        this.domObj.style.boxShadow = "inset -2px -2px 5px rgba(0,0,0,0.4), inset 2px 2px 5px rgba(255,255,255,0.1)";
     }
+}
 
     setInt(i) {
         this.currentValue = i;
