@@ -58,4 +58,38 @@ class Main {
                 `${t}: ${arguments[i]}\n` + this.domNotifyBox.value;
         }
     }
+
+    startComputerGuessMode() {
+    this.domGuessesField.innerHTML = "";
+    this.domNotifyBox.value = "";
+    this.notify("Computer Guess Mode gestartet");
+    this.notify("Denke dir einen Code aus und bewerte die Versuche des Computers");
+    
+    let allPossibilities = [];
+    for (let i = 0; i < 6; i++) {
+        for (let j = 0; j < 6; j++) {
+            for (let k = 0; k < 6; k++) {
+                for (let l = 0; l < 6; l++) {
+                    allPossibilities.push([i, j, k, l]);
+                }
+            }
+        }
+    }
+    
+    this.guesses = [new ComputerGuess(this, allPossibilities)];
+    this.domGuessesField.prepend(this.guesses[0].domObj);
 }
+
+prependComputerGuess() {
+    let guess = new ComputerGuess(
+        this,
+        this.guesses[this.guesses.length - 1].getPossibilities()
+    );
+    this.guesses.push(guess);
+    this.domGuessesField.prepend(
+        this.guesses[this.guesses.length - 1].domObj
+    );
+}
+
+}
+

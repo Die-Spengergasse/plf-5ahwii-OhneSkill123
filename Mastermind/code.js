@@ -335,3 +335,60 @@ class RowWin {
         this.domObj.appendChild(win);
     }
 }
+
+class ComputerGuess extends Guess {
+    constructor(parent, possibilities) {
+        super(parent, possibilities);
+        
+        
+        const oldButton = this.domObj.querySelector(".bewerte");
+        const newButton = document.createElement("button");
+        newButton.obj = this;
+        newButton.classList.add("bewerte");
+        newButton.innerText = "Bewerten";
+        newButton.addEventListener("click", (e) => {
+            this.userBewertung();
+        });
+        this.domObj.replaceChild(newButton, oldButton);
+        
+        
+        const autoButton = this.domObj.querySelector(".autoGuess");
+        autoButton.style.display = "none";
+        
+        
+        this.autoGuess();
+    }
+    
+    userBewertung() {
+        const schwarze = parseInt(prompt("Anzahl schwarze Stecker:", "0"));
+        const weisse = parseInt(prompt("Anzahl weisse Stecker:", "0"));
+        
+        if (isNaN(schwarze) || isNaN(weisse) || schwarze < 0 || weisse < 0 || schwarze + weisse > 4) {
+            this.parent.notify("Ungültige Eingabe");
+            return;
+        }
+        
+        this.bewertung = [schwarze, weisse];
+        
+        let bewCount = 1;
+        for (let i = 0; i < schwarze; i++) {
+            this.domObj.getElementsByClassName(`b${bewCount}`)[0].style.backgroundColor = "#000";
+            bewCount++;
+        }
+        for (let i = 0; i < weisse; i++) {
+            this.domObj.getElementsByClassName(`b${bewCount}`)[0].style.backgroundColor = "#fff";
+            bewCount++;
+        }
+        for (; bewCount <= 4; bewCount++) {
+            this.domObj.getElementsByClassName(`b${bewCount}`)[0].style.backgroundColor = "#888";
+        }
+        
+        this.isBewerted = true;
+        
+        if (schwarze < 4) {
+            this.parent.prependComputerGuess();
+        } else {
+            this.parent.prependWin();
+        }
+    }
+}

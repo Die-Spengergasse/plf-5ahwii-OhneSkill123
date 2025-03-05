@@ -21,6 +21,15 @@ function cl() {
     Jedes Dom Element kriegt das erzeugende Objekt mit => this.obj
 */
 
+function initButtonListeners() {
+    const computerGuessBtn = document.getElementById("computerGuessBtn");
+    if (computerGuessBtn) {
+        computerGuessBtn.addEventListener("click", function() {
+            main.startComputerGuessMode();
+        });
+    }
+}
+
 function init() {
     main = new Main(
         document.getElementById("master"),
@@ -28,4 +37,5 @@ function init() {
         document.getElementById("notify")
     );
     main.newGame();
+    initButtonListeners();
 }

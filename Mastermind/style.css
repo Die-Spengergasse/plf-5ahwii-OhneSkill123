@@ -135,3 +135,15 @@ h2 {
 p {
     text-align: center;
 }
+
+#computerGuessBtn {
+    display: block;
+    padding: 10px;
+    background-color: #999;
+    color: white;
+    border: solid 0.2rem #666;
+    border-radius: 0.5rem;
+    margin: 10px auto;
+    cursor: pointer;
+    font-weight: bold;
+}
